@@ -1,0 +1,135 @@
+form{
+    display: flex;
+    flex-direction: column;
+    color: black;
+    background-color: white;
+    gap: 0.8em;
+    padding: 2em;
+    border-radius: 2em;
+    width: 30em;
+}
+.send-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+input{
+    border-radius: 5px;
+    border: none;
+    border-bottom: 2px solid black;
+    height: 2.5em;
+    width: 25em;
+}
+
+textarea{
+    border: none;
+}
+
+
+.image-upload > input
+{
+    display: none;
+}
+
+.image-upload img
+{
+    width: 30px;
+    cursor: pointer;
+}
+
+.submit-btn{
+    border: none;
+    border-radius: 30px;
+    background-color: #0077b6;
+    padding: 0.6em;
+}
+
+.schedule{
+    width: 30px;
+}
+
+.list-ul{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 1em;
+   
+    justify-content: center;
+}
+
+.list-ul li a{
+    color: white;
+    text-decoration: none;
+}
+
+.list-ul li{
+    background-color: #343a40;
+    padding: 0.8em ;
+    width: 30em;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    text-align: start;
+}
+
+.message{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    
+}
+
+.status{
+    background-color: #19191a;
+    color: white;
+    text-align: center;
+    border-radius: 30px;
+    padding: 5em 10em;
+}
+
+
+  /* Container for the image and tooltip */
+  .icon-tooltip {
+    position: relative;
+    display: inline-block;
+    cursor: pointer; /* Show a pointer cursor on hover */
+  }
+  
+  /* Tooltip text styling */
+  .icon-tooltip .tooltiptext {
+    visibility: hidden;
+    width: 200px; /* Adjust the width as needed */
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 10px;
+    position: absolute;
+    z-index: 1;
+    bottom: 1em; /* Position the tooltip above the icon */
+    left: 50%;
+    margin-left: -100px; /* Center the tooltip */
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  /* Tooltip arrow */
+  .icon-tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%; /* At the bottom of the tooltip text */
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+  }
+  
+  /* Show the tooltip text on hover */
+  .icon-tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+  }
+  

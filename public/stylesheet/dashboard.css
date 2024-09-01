@@ -1,0 +1,168 @@
+body{
+   display: flex;
+    height: 100%;
+    overflow: hidden;
+}
+.dashboard{
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2em;
+
+
+}
+
+.new-page{
+    width: 20em;
+    height: 100vh;
+
+    color: white;
+    
+}
+
+#startForm a{
+    font-size: 0.9em;
+    background-color: #343a40;
+    padding: 0.5em 2em;
+    border-radius: 30px;
+}
+
+
+#startForm button{
+    font-size: 0.9em;
+    background-color: #343a40;
+    padding: 0.5em 2em;
+    border-radius: 30px;
+}
+
+.form{
+    display: flex;
+}
+
+.input{
+    width: 100%;
+    border: 2px black solid;
+    border-radius: 30px;
+}
+
+.new{
+    border: none;
+    background-color: transparent;
+    color: white;
+ 
+}
+
+.new:hover{
+    background-color: #212529;
+    border-radius: 3px;
+}
+
+.sidebar{
+    overflow: scroll;
+    height: 89vh;
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    top: 3em;
+}
+
+.sidebar a {
+    display: flex;
+    flex-direction: column;
+    color: white;
+    font-size: 0.5em;
+    margin: 15px 4em 15px 0;
+    text-decoration: none;
+     font-weight: 400;
+     width: 100%;
+
+}
+
+.sidebar a:hover{
+    background-color: #343a40;
+    padding: 0.3em;
+    margin-right: 1em;
+    border-radius: 3px;
+}
+
+.sidebar a:active{
+    background-color: #343a40;
+    padding: 0.3em;
+    margin-right: 1em;
+    border-radius: 3px;
+}
+
+.sidebar a:focus{
+    background-color: #343a40;
+    padding: 0.3em;
+    margin-right: 1em;
+    border-radius: 3px;
+}
+
+.convo{
+    width: 100%;
+    color: beige;
+    position: relative;
+
+}
+
+.convo-history{
+    overflow-y: scroll;
+    height: 70vh;
+}
+
+.userinput{
+    display: flex;
+    align-items: flex-end;
+    justify-content: end;
+    margin: 1em;
+   
+}
+
+.userinput-p{
+    width: 40%;
+    background-color: #212529;
+    border-radius: 1em;
+    padding: 1.5em;
+}
+
+.convo  #search-form{
+    display: flex;
+    align-items: end;
+    justify-content: end;
+}
+
+#search-form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    left: 3em;
+    margin-bottom: 1em;
+    bottom: 4em;
+}
+
+#search-form button{
+    border: none;
+    border-radius: 100%;
+    height: 3em;
+    width: 3em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.send{
+  
+    display: flex;
+    width: 65%;
+}
+
+
+.sidebar::-webkit-scrollbar {
+
+    background: #212529; /* or add it to the track */
+  }
+  

@@ -1,0 +1,44 @@
+
+  /* Container for the image and tooltip */
+  .icon-tooltip {
+    position: relative;
+    display: inline-block;
+    cursor: pointer; /* Show a pointer cursor on hover */
+  }
+  
+  /* Tooltip text styling */
+  .icon-tooltip .tooltiptext {
+    visibility: hidden;
+    width: 100px; /* Adjust the width as needed */
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 10px;
+    position: absolute;
+    z-index: 1;
+    bottom: 1em; /* Position the tooltip above the icon */
+    left: 50%;
+    margin-left: -100px; /* Center the tooltip */
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  /* Tooltip arrow */
+  .icon-tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 100%; /* At the bottom of the tooltip text */
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #555 transparent transparent transparent;
+  }
+  
+  /* Show the tooltip text on hover */
+  .icon-tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+  }
+  

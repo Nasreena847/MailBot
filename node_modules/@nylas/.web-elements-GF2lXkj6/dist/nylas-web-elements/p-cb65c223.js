@@ -1,0 +1,2 @@
+var e=typeof globalThis!=="undefined"?globalThis:typeof window!=="undefined"?window:typeof global!=="undefined"?global:typeof self!=="undefined"?self:{};function n(e){if(e.__esModule)return e;var n=Object.defineProperty({},"__esModule",{value:true});Object.keys(e).forEach((function(t){var o=Object.getOwnPropertyDescriptor(e,t);Object.defineProperty(n,t,o.get?o:{enumerable:true,get:function(){return e[t]}})}));return n}export{e as c,n as g};
+//# sourceMappingURL=p-cb65c223.js.map

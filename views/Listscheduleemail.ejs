@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scheduled Messages</title>
+<link rel="stylesheet" href="/stylesheet/sendEmailForm.css">
+</head>
+<body>
+    <% layout('layout/boilerplate') %>
+<ul class="list-ul">
+    <% if (messages) { %>
+        <% messages.forEach(message => { %>
+            <li>
+                <a href="/scheduled-message/<%= message.scheduleId %>" class="message-link" data-id="<%= message.scheduleId %>">
+                    <span class="message-name" data-close-time="<%= message.closeTime %>"></span>
+                </a>
+            </li>
+        <% }) %>
+    <% } %>
+</ul>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Function to convert Unix timestamp to a readable date
+      function formatDate(timestamp) {
+        const date = new Date(timestamp * 1000); // Convert seconds to milliseconds
+        return date.toLocaleString(); // Format date as a local string
+      }
+  
+      // Populate the message names with formatted dates
+      document.querySelectorAll('.message-link').forEach(link => {
+        const closeTime = link.querySelector('.message-name').getAttribute('data-close-time');
+        const formattedDate = formatDate(closeTime);
+        link.querySelector('.message-name').textContent = formattedDate;
+      });
+    });
+  </script>
+  
+  </body>
+  </html>
