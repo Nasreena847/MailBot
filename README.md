@@ -25,11 +25,11 @@ MailBot is an AI-powered chatbot application that allows users to interact with 
    git clone https://github.com/yourusername/mailbot.git
 
 2. ## Navigate to the project directory:
-  ```bash
-  cd mailbot
+   ```bash
+   cd mailbot
 
 3. ## Create a .env file in the root directory and add the following variables:
-  ```bash
+   ```bash
    OPENAI_API_KEY=your-openai-api-key
    NYLAS_API_KEY=your-nylas-api-key
    NYLAS_URI=your-nylas-uri
