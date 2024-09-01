@@ -45,7 +45,7 @@ router.post('/send-email', upload.array('attachments') , async (req, res) => {
         attachments: attachments,
       },
     });
-    req.flash('success', 'Email scheduled successfully!');
+    req.flash('success', 'Email sent successfully!');
     res.redirect('/dashboard');
 
   } catch (error) {
@@ -76,6 +76,7 @@ router.post('/schedule-email', async (req, res) => {
           useDraft: true
         },
     })
+    req.flash('success', 'Email Scheduled successfully!');
     res.redirect('/dashboard');
   } catch (error) {
     console.error('Error scheduling email:', error)
