@@ -2,8 +2,7 @@
 
 MailBot is an AI-powered chatbot application that allows users to interact with AI, save conversation history, and send scheduled or immediate emails based on chat content. It is built with Express.js, integrates with OpenAI for generating responses, and supports user session management.
 
-[]![https://github.com/Nasreena847/MailBot/blob/main/Images/Screenshot%20(156).png]
-
+![Description of the image](https://github.com/Nasreena847/MailBot/blob/main/Images/Screenshot%20(156).png)
 ## Features
 
 - **AI-Powered Conversations**: Users can interact with an AI model to ask questions and receive detailed responses.
