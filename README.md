@@ -40,3 +40,6 @@ MailBot is an AI-powered chatbot application that allows users to interact with 
    ```bash
     nodemon app.js
 
+## OR 
+  ``` bash
+      node app.js
