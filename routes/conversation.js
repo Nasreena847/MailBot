@@ -6,7 +6,7 @@ import handleDashboardPost from '../public/javascripts/conversationLogic.js';
 const router = express.Router();
 
 const checkAuth = (req, res, next) => {
-  if (!req.session.email || !req.session.email.email) {
+  if (!req.session.email) {
     return res.redirect('/nylas/auth'); // Redirect to login if not authenticated
   }
   next();
@@ -33,7 +33,7 @@ router.get('/dashboard/:conversationId', async (req, res) => {
   const { conversationId } = req.params;
   try {
       // Fetch the user from the database using the session's email
-      const user = await User.findOne({ email: req.session.email.email });
+      const user = await User.findOne({ email: req.session.email });
 
       if (!user) {
           return res.status(404).send('User not found');

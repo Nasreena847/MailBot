@@ -8,10 +8,10 @@ const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 //Functionality for handling New Conversation
 
 async function handleDashboardPost(req, res) {
-  const email = req.session.email.email;
+  const email = req.session.email;
     const userInput = req.session.userInput;
     const searchContent = req.session.searchContent;
- 
+ console.log('handle dashboard', email)
   try {
     const user = await User.findOne({ email });
     if (!user) {

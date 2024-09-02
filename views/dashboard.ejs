@@ -42,8 +42,9 @@
     <% layout('layout/boilerplate') %>
   <div class="convo-history">
     <% if (typeof previous_conversation !== 'undefined') { %>
-      <% if (previous_conversation && previous_conversation.length > 0) { %>
+      <% if (previous_conversation ) { %>
         <% previous_conversation.forEach(conversation => { %>
+          <% console.log('previous_conversation', previous_conversation) %>
           <% if (typeof selectedConversation !== 'undefined' && selectedConversation && selectedConversation.conversationId === conversation.conversationId) { %>
             <div class="conversation-history">
               <% if (conversation.history && conversation.history.length > 0) { %>
@@ -84,7 +85,7 @@
 
   <form id="search-form">
     <div class="send">
-    <textarea name="input" id="userInput" placeholder="Text" class="input"></textarea>
+    <textarea name="input" id="Input" placeholder="Text" class="input"></textarea>
     <button type="submit" class="submit"><span class="material-symbols-outlined">
       send
       </span></button>
@@ -96,27 +97,35 @@
     const adviceContainer = document.getElementById('advice-container');
     const history = document.getElementById('history');
     if (form) {
+      console.log('clicked')
       form.addEventListener('submit', async (event) => {
         event.preventDefault();
+        let data = {};
 
-            const formData = new URLSearchParams(new FormData(form)).toString(); // Serialize form data
+        const inputField = document.getElementById('Input');
+        console.log(inputField)
+        const inputValue = inputField.value;
+    
+     
+        const formData = new URLSearchParams(new FormData(form)).toString();
         try {
+       
           const response = await fetch('/search', {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded' // Set content type
+                       'Content-Type': 'application/x-www-form-urlencoded'  // Set content type
                     },
-                    body: formData // Send plain text
+                    body: formData,// Send plain text
                 });
-
+              
           if (!response.ok) {
             throw new Error('Network response was not ok');
           }
+          console.log(response)
           const data = await response.json();
-                    location.reload();
           adviceContainer.innerHTML = `<div>${data.advice || 'No advice available'}</div>`;
           history.innerHTML = '';
-
+          location.reload()
 data.history.forEach(entry => {
     // Create a new div for each history entry
     const historyEntryDiv = document.createElement('div');
@@ -148,7 +157,7 @@ data.history.forEach(entry => {
       const searchContent = target.getAttribute('data-search-content');
       
       // Set the form body with the selected content
-      document.getElementById('form-body').value = `You: ${searchTerm}\nAI: ${searchContent}`;
+    
     }
   }
 

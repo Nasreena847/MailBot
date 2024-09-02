@@ -5,7 +5,7 @@ import passportLocalMongoose from 'passport-local-mongoose'
 
 const conversationSchema = new mongoose.Schema({
   name: { type: String, required: true },
-  conversationId: { type: String, required: true, unique: true }, // Unique ID for each conversation
+  conversationId: { type: String, unique: true }, // Unique ID for each conversation
   history: [{
     searchTerm: { type: String },
     searchContent: { type: String },

@@ -7,15 +7,18 @@ import { marked } from 'marked';
 const router = express.Router();
 
 router.use(express.urlencoded({ extended: true }));
-
+router.use(express.json());
 //Search Function
 
 router.post('/search', async (req, res) => {
     const userInput = req.body.input;
     req.session.userInput = userInput
-    const email = req.session.email.email;
+  const email = req.session.email;
+   console.log('email', req.session.email)
     const conversationId = req.session.conversationId;
 
+  console.log('userinput in search', req.body.inputValue)
+  
     if (!email || !userInput) {
       return res.status(400).send('Email or input not provided');
   }
@@ -24,43 +27,43 @@ router.post('/search', async (req, res) => {
       // Find user and update search history
       const user = await User.findOne({ email });
       
-      if (!user.searchHistory) {
-        user.searchHistory = [];
-      }
-     
+      console.log('user', User.email)
+    
       const advice = await Ai(userInput);
       const trimmedAdvice = advice.trim();
       req.session.searchContent = trimmedAdvice;
-    
-      let conversation = user.Conversation.find(convo => convo.conversationId === conversationId);
-      if (conversation) {
-        // Update existing conversation history
-        conversation.history.push({ searchTerm: userInput, searchContent: trimmedAdvice });
-        if (!conversation.name || conversation.name === 'New Conversation') {
-          const conversationName = await generateConversationName(userInput);
-          conversation.name = conversationName;
-        }
-        if (conversation.refresh) {
-          location.reload();
-        }
-      } else {
-        // Create a new conversation if it doesn't exist
-        const newConversationId = uuidv4(); // Generate a new conversation ID if needed
-        conversation = {
+
+      if (user) {
+        console.log('user found')
+        let conversation = user.Conversation.find(convo => convo.conversationId === conversationId);
+        if (conversation) {
+          // Update existing conversation history
+          conversation.history.push({ searchTerm: userInput, searchContent: trimmedAdvice });
+          if (!conversation.name || conversation.name === 'New Conversation') {
+            const conversationName = await generateConversationName(userInput);
+            conversation.name = conversationName;
+          }
+        } else {
+          console.log('creating new')
+          // Create a new conversation if it doesn't exist
+          const newConversationId = uuidv4(); // Generate a new conversation ID if needed
+          conversation = {
             name: userInput.length > 0 ? userInput.substring(0, 20) + '...' : 'New Conversation',
             conversationId: newConversationId,
             history: [{ searchTerm: userInput, searchContent: trimmedAdvice }]
-        };
-        user.Conversation.push(conversation);
-        req.session.conversationId = newConversationId; // Update the session with the new conversation ID
+          };
+          user.Conversation.push(conversation);
+          req.session.conversationId = newConversationId; // Update the session with the new conversation ID
+        }
+        const conversationHistory = conversation.history
+       
+        res.json({ advice: trimmedAdvice, history: conversationHistory });
+        console.log(trimmedAdvice)
+        console.log(conversationHistory)
+        
+        await user.save();
       }
-
-      const conversationHistory = conversation.history.map(message => ({
-        ...message,
-        searchContent: marked(message.searchContent),
-    }));
-      res.json({ advice: trimmedAdvice, history: conversationHistory });
-      await user.save();
+      
 
     } catch (error) {
       console.error('Error saving search details:', error);

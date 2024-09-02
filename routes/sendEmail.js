@@ -45,6 +45,7 @@ router.post('/send-email', upload.array('attachments') , async (req, res) => {
         attachments: attachments,
       },
     });
+    console.log('sent', sentMessage)
     req.flash('success', 'Email sent successfully!');
     res.redirect('/dashboard');
 

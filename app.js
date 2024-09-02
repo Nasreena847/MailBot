@@ -18,6 +18,7 @@ import ExpressError from './utils/ExpressError.js';
 import ConversationRoutes from './routes/conversation.js'
 import sendEmail from './routes/sendEmail.js'
 import Nylas from 'nylas';
+import { v4 as uuidv4 } from 'uuid';
 import axios from 'axios';
 
 
@@ -70,9 +71,6 @@ store.on("error", function (e) {
     console.log('session store error')
 })
 
-
-
-
 const sessionConfig = {
     store,
     secret: 'Secret',
@@ -103,15 +101,10 @@ app.use((req, res, next) => {
 
 
 app.get('/', (req, res) => {
-  req.session.email.email = null
+
   res.render('Home')
   console.log('authencated', req.session.email.email)
 })
-app.use((req, res, next) => {
-  res.locals.isAuthenticated = req.session && req.session.email.email; 
-  next();
-});
-
 
 
 app.use('/', UserRoutes);
@@ -122,7 +115,6 @@ app.use(express.text());
 app.use('/', ConversationRoutes);
 app.use('/', sendEmail)
 
-console.log('app conversation', User.Conversation)
 
 const config = {
     apiUri: process.env.NYLAS_API_URI,  
@@ -139,7 +131,6 @@ const config = {
       });
   
       const grants = response.data;
-      console.log('List of Grants:', grants);
       return grants;
     } catch (error) {
       console.error('Error fetching grants:', error.response ? error.response.data : error.message);
@@ -152,27 +143,27 @@ const config = {
   
 
 async function storeGrantData() {
-    const grantsResponse = await fetchGrantIds(); // Call to fetchGrantIds to get the API response
-  
-    if (grantsResponse && grantsResponse.data && Array.isArray(grantsResponse.data)) {
-      const grants = grantsResponse.data; // Access the actual grants array
-  
-      for (const grant of grants) {
-        if (grant.email && grant.id) {
-          await User.updateOne(
-            { email: grant.email },  
-            { $set: { grantId: grant.id } },  
-            { upsert: true } 
-          );
-        } else {
-          console.error('Grant is missing email or id:', grant);
-          }
-          console.log('User', User)
-      }
-    } else {
-      console.error('No grants data found or data is not an array:', grantsResponse);
+  const grantsResponse = await fetchGrantIds(); // Call to fetchGrantIds to get the API response
+
+  if (grantsResponse && grantsResponse.data && Array.isArray(grantsResponse.data)) {
+    const grants = grantsResponse.data; // Access the actual grants array
+
+    for (const grant of grants) {
+      if (grant.email && grant.id) {
+        await User.updateOne(
+          { email: grant.email },  
+          { $set: { grantId: grant.id } },  
+          { upsert: true } 
+        );
+      } else {
+        console.error('Grant is missing email or id:', grant);
+        }
+        console.log('User', User)
     }
+  } else {
+    console.error('No grants data found or data is not an array:', grantsResponse);
   }
+}
 
 storeGrantData();
   
