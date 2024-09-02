@@ -11,7 +11,7 @@ async function handleDashboardPost(req, res) {
   const email = req.session.email;
     const userInput = req.session.userInput;
     const searchContent = req.session.searchContent;
- console.log('handle dashboard', email)
+
   try {
     const user = await User.findOne({ email });
     if (!user) {

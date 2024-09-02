@@ -14,10 +14,8 @@ router.post('/search', async (req, res) => {
     const userInput = req.body.input;
     req.session.userInput = userInput
   const email = req.session.email;
-   console.log('email', req.session.email)
     const conversationId = req.session.conversationId;
 
-  console.log('userinput in search', req.body.inputValue)
   
     if (!email || !userInput) {
       return res.status(400).send('Email or input not provided');
@@ -26,15 +24,12 @@ router.post('/search', async (req, res) => {
     try {
       // Find user and update search history
       const user = await User.findOne({ email });
-      
-      console.log('user', User.email)
     
       const advice = await Ai(userInput);
       const trimmedAdvice = advice.trim();
       req.session.searchContent = trimmedAdvice;
 
       if (user) {
-        console.log('user found')
         let conversation = user.Conversation.find(convo => convo.conversationId === conversationId);
         if (conversation) {
           // Update existing conversation history
@@ -44,7 +39,6 @@ router.post('/search', async (req, res) => {
             conversation.name = conversationName;
           }
         } else {
-          console.log('creating new')
           // Create a new conversation if it doesn't exist
           const newConversationId = uuidv4(); // Generate a new conversation ID if needed
           conversation = {
@@ -58,8 +52,6 @@ router.post('/search', async (req, res) => {
         const conversationHistory = conversation.history
        
         res.json({ advice: trimmedAdvice, history: conversationHistory });
-        console.log(trimmedAdvice)
-        console.log(conversationHistory)
         
         await user.save();
       }

@@ -32,8 +32,6 @@ router.get("/nylas/auth", (req, res) => {
 router.get("/oauth/exchange", async (req, res) => {
   const code = req.query.code;
 
-  console.log('code', code)
-
   if (!code) {
     res.status(400).send("No authorization code returned from Nylas");
     return;
@@ -50,8 +48,6 @@ router.get("/oauth/exchange", async (req, res) => {
     const response = await nylas.auth.exchangeCodeForToken(codeExchangePayload);
     const { accessToken, grantId} = response;
   
-
-    console.log('response', response)
     const email = response.email;
     let user = await User.findOne({ email: response.email });
 
@@ -59,8 +55,6 @@ router.get("/oauth/exchange", async (req, res) => {
 
     const username = email.split('@')[0]; // Ensure this produces a valid value
     const conversationName = 'New Conversation'; 
-
-    console.log('username', username)
 
     if (!user) {
       console.log('User not found, creating a new user');
@@ -74,7 +68,6 @@ router.get("/oauth/exchange", async (req, res) => {
           // Add any other necessary fields here
         }] // Initialize with default values
       });
-      console.log('user', user)
     } 
     await user.save();
     req.session.userInput = null;
@@ -104,13 +97,10 @@ router.get("/dashboard", async (req, res) => {
     console.log('user email', User.findOne({ email }))
     console.log('user in dashboard', users)
     const previous_conversation = users?.Conversation;
-   
-    // Pass an empty array or handle as needed
-    
-    previous_conversation.forEach((item) => {
-      console.log('previous', item);
-  });
-      res.render('dashboard', { previous_conversation});
+    if (!previous_conversation) {
+      previous_conversation = [] ;
+  }
+      res.render('dashboard', { previous_conversation });
     }
    catch (error) {
     console.error('Error fetching conversations:', error);

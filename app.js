@@ -158,7 +158,6 @@ async function storeGrantData() {
       } else {
         console.error('Grant is missing email or id:', grant);
         }
-        console.log('User', User)
     }
   } else {
     console.error('No grants data found or data is not an array:', grantsResponse);
